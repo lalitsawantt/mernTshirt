@@ -2,6 +2,7 @@ const Product = require("../models/product");
 const formidable = require("formidable");
 const _ = require("lodash");
 const fs = require("fs");
+const { body } = require("express-validator");
 
 
 exports.getProductById = (req, res, next, id) => {      
@@ -174,21 +175,28 @@ exports.getAllUniqueCategories = (req, res) => {
 
 
 exports.updateStock = (req, res, next) => {
-    let myOperations = req.body.order.products.map(prod => {
-        return {
-            updateOne : {
-                filter : {_id : prod._id},
-                update: {$inc : {stock : -prod.count, sold : +prod.count}}
-            }
-        }
-    });
-    
-    Product.bulkWrite(myOperations,{}, (err, products) => {
-        if(err) {
-            return res.status(400).json({
-                error : "Bulk opeartion failed"
-            })
-        }
-        next();
-    });
+  let myOperations = req.body.order.products.map(prod => {
+    return {
+      updateOne: {
+        filter: { _id: prod._id },
+        update: { $inc: { stock: -1, sold: +1 } }
+      }
+    };
+  });
+
+  console.log("##################################")
+  console.log("myOperations ::: ", myOperations);
+  console.log("DATA RECEIVED:::::::: ", req.body.order);
+//   console.log("PROD>COuNT::::::: ", );
+
+
+
+  Product.bulkWrite(myOperations, {}, (err, products) => {
+    if (err) {
+      return res.status(400).json({
+        error: "Bulk operation failed"
+      });
+    }
+    next();
+  });
 };

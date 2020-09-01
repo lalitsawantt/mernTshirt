@@ -61,35 +61,41 @@ exports.userPurchaseList = (req, res, next) => {
 }
 
 
-exports.pushOrderInPurchaseList = (req, res) => {
+exports.pushOrderInPurchaseList = (req, res, next) => {
     let purchases = [];
+    // console.log("CONTROLLERS/USER/PUSHORDERINPURCHASELIST ::: REQ BODY :",req.body);
     req.body.order.products.forEach(product => {
+    // req.body.products.forEach(product => {
         purchases.push({
             _id: product._id,
             name: product.name,
             description : product.description,
-            category : product.category,
+            category : product.category, 
             quantity : product.quantity,
             amount : req.body.order.amount,
+            // amount : req.body.amount,
             transaction_id : req.body.order.transaction_id
+            // transaction_id : req.body.transaction_id
         });
     });
 
     // store this in db
+    // console.log("HERE1")
 
     User.findOneAndUpdate({__id: req.profile._id},
         {$push : {purchases : purchases}},
         // first purchases is the one from the User model and second purchases is the local one
         // update the purchases in the db with the local one
         {new: true},
-        (err, purchases, next) => {
+        (err, purchases) => {
             if(err){
                 res.status(400).json({
                     error : "Unable to save the purchases"
                 })
-                next();
+                
             }
 
         }
     )
+    next();
 }
