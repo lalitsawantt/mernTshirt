@@ -16,7 +16,7 @@ const Cart = () => {
     const loadAllProducts = (products) => {
         return (
             <div>
-                <h2>This section is to load products</h2>
+                <h2>Products in your cart</h2>
                 {products.map((product, index) => (
                     <Card
                     key={index}
@@ -51,7 +51,7 @@ const Cart = () => {
             <div className="row">
                 <div className="col-6">
                     {
-                        products.length > 0 ? loadAllProducts(products) : (<h3>NO products in cart</h3>)
+                        products?.length > 0 ? loadAllProducts(products) : (<h3>NO products in cart</h3>)
                     }
                 </div>
                 <div className="col-6">

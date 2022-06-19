@@ -6,8 +6,8 @@ import Menu from "./Menu";
 //          OR
 // () => (<div></div>)
 const Base = ({
-    title="My Title",
-    description="My description",
+    title="",
+    description="",
     className="bg-dark text-white p-4",
     children
 }) => {

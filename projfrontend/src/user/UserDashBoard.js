@@ -3,7 +3,7 @@ import Base from '../core/Base';
 
 const UserDashBoard = () => {
     return ( 
-        < Base title = "UserDashBoard page" >
+        < Base title = "User Dashboard page" >
             <h1> Welcome to User Dashboard! </h1> 
         </Base>
     )

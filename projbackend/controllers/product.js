@@ -88,7 +88,7 @@ exports.photo = (req, res, next) => {
 
 exports.deleteProduct = (req, res) => {
     let product = req.product;
-    console.log("THIS IS THE REQ: ",req);
+    // console.log("THIS IS THE REQ: ",req);
     product.remove((err, deletedProduct) => {
         if(err) {
             return res.status(400).json({
